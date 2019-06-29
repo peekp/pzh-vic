@@ -1,5 +1,3 @@
-import * as genresAPI from "./fakeGenreService";
-
 const workPrograms = [
   {
     _id: 1,
@@ -769,16 +767,47 @@ export function getWorkProgram(id) {
 }
 
 export function saveWorkProgram(workProgram) {
-  let workProgramInDb = workPrograms.find(m => m._id === workProgram._id) || {};
-  workProgramInDb.name = workProgram.name;
-  workProgramInDb.genre = genresAPI.genres.find(
-    g => g._id === workProgram.genreId
-  );
-  workProgramInDb.numberInStock = workProgram.numberInStock;
-  workProgramInDb.dailyRentalRate = workProgram.dailyRentalRate;
+  let workProgramInDb =
+    workPrograms.find(m => m._id === Number(workProgram._id)) || {};
+  workProgramInDb.PostNr = workProgram.PostNr;
+  workProgramInDb.OrganisatieEenheid = workProgram.OrganisatieEenheid;
+  workProgramInDb.Afdeling = workProgram.Afdeling;
+  workProgramInDb.Bureau = workProgram.Bureau;
+  workProgramInDb.Kostenplaats = workProgram.Kostenplaats;
+  workProgramInDb.DocumentNummer = workProgram.DocumentNummer;
+  workProgramInDb.LeverancierInkoopOmschrijving =
+    workProgram.LeverancierInkoopOmschrijving;
+  workProgramInDb.BedragFactuur = workProgram.BedragFactuur;
+  workProgramInDb.BedragBesluit = workProgram.BedragBesluit;
+  workProgramInDb.SoortInkoop = workProgram.SoortInkoop;
+  workProgramInDb.SoortFactuur = workProgram.SoortFactuur;
+  workProgramInDb.KC1 = workProgram.KC1;
+  workProgramInDb.KC2 = workProgram.KC2;
+  workProgramInDb.KC3 = workProgram.KC3;
+  workProgramInDb.KC4 = workProgram.KC4;
+  workProgramInDb.KC5 = workProgram.KC5;
+  workProgramInDb.KC6 = workProgram.KC6;
+  workProgramInDb.KC7_1 = workProgram.KC7_1;
+  workProgramInDb.KC7_2 = workProgram.KC7_2;
+  workProgramInDb.KC8_1 = workProgram.KC8_1;
+  workProgramInDb.KC8_2 = workProgram.KC8_2;
+  workProgramInDb.KC9_1 = workProgram.KC9_1;
+  workProgramInDb.KC9_2 = workProgram.KC9_2;
+  workProgramInDb.KC10_1 = workProgram.KC10_1;
+  workProgramInDb.KC10_2 = workProgram.KC10_2;
+  workProgramInDb.KC11_1 = workProgram.KC11_1;
+  workProgramInDb.KC11_2 = workProgram.KC11_2;
+  workProgramInDb.KC12_1 = workProgram.KC12_1;
+  workProgramInDb.KC12_2 = workProgram.KC12_2;
+  workProgramInDb.KC13 = workProgram.KC13;
+  workProgramInDb.KC14 = workProgram.KC14;
+  workProgramInDb.KC15 = workProgram.KC15;
+  workProgramInDb.KC16 = workProgram.KC16;
+  workProgramInDb.Opmerkingen = workProgram.Opmerkingen;
+  workProgramInDb.Controleur = workProgram.Controleur;
 
   if (!workProgramInDb._id) {
-    workProgramInDb._id = Date.now();
+    workProgramInDb._id = Number(workProgram.PostNr);
     workPrograms.push(workProgramInDb);
   }
 
