@@ -43,7 +43,7 @@ class WorkPrograms extends Component {
     this.setState({ currentPage: page });
   };
   handleSearch = query => {
-    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+    this.setState({ searchQuery: query, currentPage: 1 });
   };
   handleSort = sortColumn => {
     this.setState({ sortColumn });
@@ -61,7 +61,7 @@ class WorkPrograms extends Component {
     let filtered = allWorkPrograms;
     if (searchQuery)
       filtered = allWorkPrograms.filter(m =>
-        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.Controleur.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
