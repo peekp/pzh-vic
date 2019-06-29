@@ -49,7 +49,7 @@ const workPrograms = [
     Bureau: "Cultuur en Vrije tijd",
     Kostenplaats: 395,
     DocumentNummer: 295487,
-    LeverancieInkoopOmschrijving:
+    LeverancierInkoopOmschrijving:
       "ART & FACTS\n\nUren Suzanne Hoeve Augustus 2018\n\nPZH_2018_654415048",
     BedragFactuur: " � 5.596,64 ",
     BedragBesluit: " � 15.000 ",
@@ -765,7 +765,7 @@ export function getWorkPrograms() {
 }
 
 export function getWorkProgram(id) {
-  return workPrograms.find(m => m._id === id);
+  return workPrograms.find(m => m._id === Number(id));
 }
 
 export function saveWorkProgram(workProgram) {

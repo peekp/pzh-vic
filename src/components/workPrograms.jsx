@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 import WorkProgramsTable from "./workProgramsTable";
-import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import { getWorkPrograms } from "../services/fakeWorkProgramService";
 import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
-import _ from "lodash";
+import SearchBox from "./searchBox";
 
 class WorkPrograms extends Component {
   state = {
@@ -13,6 +14,7 @@ class WorkPrograms extends Component {
     genres: [],
     currentPage: 1,
     pageSize: 5,
+    searchQuery: "",
     sortColumn: { path: "title", order: "asc" }
   };
 
@@ -40,7 +42,9 @@ class WorkPrograms extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
-
+  handleSearch = query => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  };
   handleSort = sortColumn => {
     this.setState({ sortColumn });
   };
@@ -50,10 +54,15 @@ class WorkPrograms extends Component {
       pageSize,
       currentPage,
       sortColumn,
+      searchQuery,
       workPrograms: allWorkPrograms
     } = this.state;
 
-    const filtered = allWorkPrograms;
+    let filtered = allWorkPrograms;
+    if (searchQuery)
+      filtered = allWorkPrograms.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -64,7 +73,7 @@ class WorkPrograms extends Component {
 
   render() {
     const { length: count } = this.state.workPrograms;
-    const { pageSize, currentPage, sortColumn } = this.state;
+    const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
 
     if (count === 0) return <p>There are no workPrograms in the database.</p>;
 
@@ -73,7 +82,15 @@ class WorkPrograms extends Component {
     return (
       <div className="row">
         <div className="col-xl">
-          <p>Weergave {totalCount} in the database.</p>
+          <Link
+            to="/workPrograms/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >
+            New Entry
+          </Link>
+
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <WorkProgramsTable
             workPrograms={workPrograms}
             sortColumn={sortColumn}

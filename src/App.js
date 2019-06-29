@@ -7,6 +7,7 @@ import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import WorkPrograms from "./components/workPrograms";
+import WorkProgramForm from "./components/workProgramForm";
 import "./App.css";
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <NavBar />
         <main className="container">
           <Switch>
+            <Route path="/workPrograms/:id" component={WorkProgramForm} />
             <Route path="/workPrograms" component={WorkPrograms} />
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
